@@ -1,39 +1,21 @@
-const http = require("http");
-const fs = require("fs");
-const url = require("url");
-const { getUsers } = require("./modules/users");
-const server = http.createServer((request, response) => {
-  const parsedUrl = url.parse(request.url, true);
-  const query = parsedUrl.query;
+const express = require("express");
+const connect = require("./db"); //
+const app = express();
+const logger = require("./middleware/logger");
+const cors = require("cors");
+const usersRouter = require("./routes/users");
+const booksRouter = require("./routes/books");
+require("dotenv").config();
+// Подключение к MongoDB:
+connect();
+app.use(logger);
 
-  // Обработка разных случаев
-  if ("hello" in query) {
-    const name = query.hello;
-    if (name) {
-      response.writeHead(200, { "Content-Type": "text/plain" });
-      response.end(`Hello, ${name}.`);
-    } else {
-      response.writeHead(400, { "Content-Type": "text/plain" });
-      response.end("Enter a name");
-    }
-  } else if ("users" in query) {
-    try {
-      const users = getUsers();
-      response.writeHead(200, { "Content-Type": "application/json" });
-      response.end(JSON.stringify(users));
-    } catch {
-      response.writeHead(500, { "Content-Type": "application/json" });
-      response.end(JSON.stringify([]));
-    }
-  } else if (Object.keys(query).length === 0) {
-    response.writeHead(200, { "Content-Type": "text/plain" });
-    response.end("Hello, World!");
-  } else {
-    response.writeHead(500, { "Content-Type": "text/plain" });
-    response.end("");
-  }
-});
-const PORT = process.env.PORT || 3003;
-server.listen(PORT, "127.0.0.1", () => {
-  console.log(`Server running at http://127.0.0.1:${PORT}/`);
+// Далее твой код роутов, мидлвар и серверного старта
+app.use(express.json());
+app.use(cors());
+app.use("/users", usersRouter);
+app.use("/books", booksRouter);
+
+app.listen(3005, () => {
+  console.log("Сервер запущен на http://127.0.0.1:3005");
 });

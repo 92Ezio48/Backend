@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "7454e6a2-4ee0-414c-9445-510d8b320a5f",
+		"name": "HW-3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44885218"
+	},
+	"item": [
+		{
+			"name": "Получить всех пользователей",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вкладка Tests\r",
+							"pm.test(\"Статус 200\", () => pm.response.code === 200);\r",
+							"pm.test(\"Это массив\", () => Array.isArray(pm.response.json()));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить пользователей по id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус 200\", () => pm.response.code === 200);\r",
+							"const data = pm.response.json();\r",
+							"pm.test(\"Есть имя\", () => data.hasOwnProperty(\"name\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/{{user_id}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать пользователя",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус 201\", () => pm.response.code === 201);\r",
+							"pm.test(\"Имя совпадает\", () => pm.response.json().name === \"Тестовый\");\r",
+							"pm.test(\"Есть id\", () => pm.response.json().hasOwnProperty(\"id\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Обновить пользователя",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/{{user_id}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удалить пользователя",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/users/{{user_id}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить все книги",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус 200\", () => pm.response.code === 200);\r",
+							"pm.test(\"Это массив\", () => Array.isArray(pm.response.json()));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/books",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить книги по id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус 200\", () => pm.response.code === 200);\r",
+							"const data = pm.response.json();\r",
+							"pm.test(\"Есть title\", () => data.hasOwnProperty(\"title\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/books/{{book_id}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"books",
+						"{{book_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать книгу",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/books",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Обновить книгу",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/books/{{book_id}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"books",
+						"{{book_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удалить книгу",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/books/{{book_id}}",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"books",
+						"{{book_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
